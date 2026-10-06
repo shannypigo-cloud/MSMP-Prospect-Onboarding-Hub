@@ -10,7 +10,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>MSMP CRM</title>a
+<title>MSMP CRM</title>
 <style>
 :root{
   --bg:#f4f2ee;--card:#fff;--ink:#171717;--muted:#6d6d6d;--line:#e7e2da;
@@ -515,6 +515,211 @@ body::before{
   }
 }
 
+
+/* --- MOBILE FORM ACTION FIX V3 --- */
+@media (max-width: 640px){
+  /* Do not float Save / Cancel / Delete over the Notes field */
+  .formfooter{
+    position:static !important;
+    bottom:auto !important;
+    z-index:auto !important;
+    margin:18px 0 0 !important;
+    padding:14px 0 0 !important;
+    background:transparent !important;
+    backdrop-filter:none !important;
+    border-radius:0 !important;
+  }
+
+  .formfooter > div{
+    width:auto !important;
+    margin-left:auto !important;
+  }
+
+  /* Give Notes enough visual room before the action row */
+  #notes{
+    min-height:130px !important;
+  }
+
+  /* Keep some breathing room before the next CRM window */
+  #prospectForm{
+    padding-bottom:4px;
+  }
+}
+
+@media (max-width: 460px){
+  .formfooter{
+    display:grid !important;
+    grid-template-columns:1fr;
+    gap:8px !important;
+  }
+
+  .formfooter > div{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:1fr 1.35fr;
+    gap:8px !important;
+    margin:0 !important;
+  }
+
+  #deleteBtn{
+    width:100%;
+  }
+}
+
+
+/* --- PROSPECT BRIEF --- */
+.brief-panel{
+  margin-top:18px;
+  padding:16px;
+  border:1px solid #9ab4d8;
+  border-radius:7px;
+  background:linear-gradient(180deg,#ffffff 0%,#eef4fb 100%);
+}
+.brief-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+.brief-head h4{
+  margin:0 0 4px;
+  color:#0a246a;
+  font-size:17px;
+}
+.brief-head p{
+  margin:0;
+  color:#51657c;
+  font-size:12px;
+  line-height:1.4;
+  max-width:680px;
+}
+.brief-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.brief-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.brief-box{
+  min-width:0;
+}
+.brief-box.full{
+  grid-column:1/-1;
+}
+.brief-box label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:800;
+  color:#213b61;
+  margin-bottom:5px;
+}
+.brief-num{
+  width:20px;
+  height:20px;
+  display:inline-grid;
+  place-items:center;
+  border-radius:50%;
+  background:#245edb;
+  color:#fff;
+  font-size:10px;
+  flex:0 0 auto;
+}
+.brief-box textarea{
+  min-height:112px;
+  resize:vertical;
+}
+.brief-box.full textarea{
+  min-height:125px;
+}
+.brief-status{
+  margin-top:12px;
+  padding:8px 10px;
+  background:#ffffe1;
+  border:1px solid #b9b07a;
+  border-radius:4px;
+  font-size:11px;
+  color:#4c4728;
+}
+@media(max-width:640px){
+  .brief-panel{
+    padding:12px;
+    margin-top:14px;
+  }
+  .brief-head{
+    flex-direction:column;
+  }
+  .brief-actions{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .brief-grid{
+    grid-template-columns:1fr;
+  }
+  .brief-box.full{
+    grid-column:auto;
+  }
+  .brief-box textarea,
+  .brief-box.full textarea{
+    min-height:120px;
+  }
+}
+@media(max-width:390px){
+  .brief-actions{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* --- DESKTOP / TABLET TITLEBAR SPACING FIX V5 --- */
+@media (min-width: 641px){
+  /* Give all XP window panels more room below the blue title bar */
+  .hero{
+    padding-top:56px !important;
+  }
+
+  .toolbar{
+    padding-top:50px !important;
+  }
+
+  .section{
+    padding-top:54px !important;
+  }
+
+  .stat{
+    padding-top:44px !important;
+  }
+
+  .sidebar{
+    padding-top:38px !important;
+  }
+
+  .pipeline-col{
+    padding-top:42px !important;
+  }
+
+  .prospect-card{
+    padding-top:38px !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px){
+  .hero h2{
+    font-size:22px !important;
+  }
+
+  .hero p{
+    font-size:12px !important;
+    line-height:1.4 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -624,6 +829,56 @@ body::before{
           <div class="field full"><label data-i18n="assetsNeeded">Assets / Access Needed</label><textarea id="assets" rows="3"></textarea></div>
           <div class="field full"><label data-i18n="notes">Notes</label><textarea id="notes" rows="4"></textarea></div>
         </div>
+
+        <div class="brief-panel">
+          <div class="brief-head">
+            <div>
+              <h4 data-i18n="prospectBrief">Prospect Brief</h4>
+              <p data-i18n="prospectBriefHelp">Internal MSMP summary of what we understand, what we still need to learn, and the direction we may recommend.</p>
+            </div>
+            <div class="brief-actions">
+              <button class="btn primary" type="button" onclick="buildStarterBrief()" data-i18n="buildStarterBrief">Build Starter Brief</button>
+              <button class="btn" type="button" onclick="copyProspectBrief()" data-i18n="copyBrief">Copy Brief</button>
+            </div>
+          </div>
+
+          <div class="brief-grid">
+            <div class="brief-box full">
+              <label><span class="brief-num">1</span><span data-i18n="briefOverview">Overview</span></label>
+              <textarea id="briefOverview" rows="4" data-i18n-placeholder="briefOverviewPH" placeholder="Short internal summary of the prospect and opportunity."></textarea>
+            </div>
+
+            <div class="brief-box">
+              <label><span class="brief-num">2</span><span data-i18n="briefWhatWeKnow">What We Know</span></label>
+              <textarea id="briefWhatWeKnow" rows="5" data-i18n-placeholder="briefWhatWeKnowPH" placeholder="Important facts learned from conversations, research, and observation."></textarea>
+            </div>
+
+            <div class="brief-box">
+              <label><span class="brief-num">3</span><span data-i18n="briefOpportunities">Opportunities</span></label>
+              <textarea id="briefOpportunities" rows="5" data-i18n-placeholder="briefOpportunitiesPH" placeholder="Ways MSMP may be able to help or create value."></textarea>
+            </div>
+
+            <div class="brief-box">
+              <label><span class="brief-num">4</span><span data-i18n="briefConcerns">Concerns</span></label>
+              <textarea id="briefConcerns" rows="5" data-i18n-placeholder="briefConcernsPH" placeholder="Risks, gaps, brand concerns, operational issues, or things to handle carefully."></textarea>
+            </div>
+
+            <div class="brief-box">
+              <label><span class="brief-num">5</span><span data-i18n="briefQuestions">Questions Remaining</span></label>
+              <textarea id="briefQuestions" rows="5" data-i18n-placeholder="briefQuestionsPH" placeholder="What do we still need to ask before recommending the right solution?"></textarea>
+            </div>
+
+            <div class="brief-box full">
+              <label><span class="brief-num">6</span><span data-i18n="briefDirection">Recommended Direction</span></label>
+              <textarea id="briefDirection" rows="5" data-i18n-placeholder="briefDirectionPH" placeholder="Our current internal recommendation based on what we know so far."></textarea>
+            </div>
+          </div>
+
+          <div class="brief-status" id="briefStatus" data-i18n="briefStatusText">
+            Internal only — this brief is not shown to the prospect.
+          </div>
+        </div>
+
         <div class="formfooter">
           <button type="button" id="deleteBtn" class="btn danger hidden" onclick="deleteCurrent()" data-i18n="delete">Delete</button>
           <div style="margin-left:auto;display:flex;gap:8px">
@@ -705,11 +960,14 @@ const TEMPS=["Hot","Warm","Cold"];
 const CHANNELS=["Email","WhatsApp","SMS","Phone"];
 const SERVICES=["Social Media Management","Content Creation","Photography / Video","Paid Ads","Branding","Website / Landing Page","Strategy / Consulting"];
 
-const FIELDS=["id","createdAt","updatedAt","company","contactName","email","phone","website","instagram","source","stage","leadTemperature","preferredLanguage","preferredChannel","services","budget","startDate","lastContact","followUp","owner","nextAction","goal","painPoints","audience","platforms","success","assets","notes","activityLog"];
+const FIELDS=["id","createdAt","updatedAt","company","contactName","email","phone","website","instagram","source","stage","leadTemperature","preferredLanguage","preferredChannel","services","budget","startDate","lastContact","followUp","owner","nextAction","goal","painPoints","audience","platforms","success","assets","notes","briefOverview","briefWhatWeKnow","briefOpportunities","briefConcerns","briefQuestions","briefDirection","activityLog"];
 
 const I18N={
  en:{
-  brandSub:"Prospects → relationships → clients",installApp:"Install App",newProspectShort:"New",workspace:"Workspace",prospects:"Prospects",pipeline:"Pipeline",intake:"Intake",messages:"Messages",
+  brandSub:"Prospects → relationships → clients",  prospectBrief:"Prospect Brief",prospectBriefHelp:"Internal MSMP summary of what we understand, what we still need to learn, and the direction we may recommend.",buildStarterBrief:"Build Starter Brief",copyBrief:"Copy Brief",
+  briefOverview:"Overview",briefWhatWeKnow:"What We Know",briefOpportunities:"Opportunities",briefConcerns:"Concerns",briefQuestions:"Questions Remaining",briefDirection:"Recommended Direction",
+  briefOverviewPH:"Short internal summary of the prospect and opportunity.",briefWhatWeKnowPH:"Important facts learned from conversations, research, and observation.",briefOpportunitiesPH:"Ways MSMP may be able to help or create value.",briefConcernsPH:"Risks, gaps, brand concerns, operational issues, or things to handle carefully.",briefQuestionsPH:"What do we still need to ask before recommending the right solution?",briefDirectionPH:"Our current internal recommendation based on what we know so far.",briefStatusText:"Internal only — this brief is not shown to the prospect.",briefBuilt:"Starter brief created. Review and edit it before saving.",briefCopied:"Prospect brief copied.",
+  installApp:"Install App",newProspectShort:"New",workspace:"Workspace",prospects:"Prospects",pipeline:"Pipeline",intake:"Intake",messages:"Messages",
   prospectCRM:"Prospect CRM",heroText:"Track every relationship from first contact through proposal, follow-up and client conversion.",activePipeline:"Active pipeline",followupsDue:"Follow-ups due",proposals:"Proposals",won:"Won",
   searchPlaceholder:"Search company, contact, phone, service...",refresh:"Refresh",prospect:"Prospect",contact:"Contact",stage:"Stage",temperature:"Temp",services:"Services",followup:"Follow-up",owner:"Owner",noProspects:"No prospects yet. Add your first prospect.",
   pipelineBoard:"Pipeline Board",pipelineHelp:"See where every opportunity stands and move prospects forward with a quick stage change.",newProspect:"New Prospect",intakeHelp:"Build a complete prospect profile so every follow-up has context.",
@@ -722,7 +980,10 @@ const I18N={
   open:"Open",budget:"Budget",hot:"Hot",warm:"Warm",cold:"Cold",allStages:"All stages"
  },
  es:{
-  brandSub:"Prospectos → relaciones → clientes",installApp:"Instalar App",newProspectShort:"Nuevo",workspace:"Espacio",prospects:"Prospectos",pipeline:"Pipeline",intake:"Ingreso",messages:"Mensajes",
+  brandSub:"Prospectos → relaciones → clientes",  prospectBrief:"Resumen del Prospecto",prospectBriefHelp:"Resumen interno de MSMP sobre lo que entendemos, lo que todavía necesitamos conocer y la dirección que podríamos recomendar.",buildStarterBrief:"Crear Resumen Inicial",copyBrief:"Copiar Resumen",
+  briefOverview:"Resumen General",briefWhatWeKnow:"Lo Que Sabemos",briefOpportunities:"Oportunidades",briefConcerns:"Consideraciones / Riesgos",briefQuestions:"Preguntas Pendientes",briefDirection:"Dirección Recomendada",
+  briefOverviewPH:"Resumen interno corto del prospecto y la oportunidad.",briefWhatWeKnowPH:"Datos importantes aprendidos en conversaciones, investigación y observación.",briefOpportunitiesPH:"Formas en que MSMP podría ayudar o crear valor.",briefConcernsPH:"Riesgos, brechas, temas de marca, operación o aspectos que debemos manejar con cuidado.",briefQuestionsPH:"¿Qué necesitamos preguntar todavía antes de recomendar la solución correcta?",briefDirectionPH:"Nuestra recomendación interna actual basada en lo que sabemos.",briefStatusText:"Solo para uso interno — este resumen no se muestra al prospecto.",briefBuilt:"Resumen inicial creado. Revísalo y edítalo antes de guardar.",briefCopied:"Resumen del prospecto copiado.",
+  installApp:"Instalar App",newProspectShort:"Nuevo",workspace:"Espacio",prospects:"Prospectos",pipeline:"Pipeline",intake:"Ingreso",messages:"Mensajes",
   prospectCRM:"CRM de Prospectos",heroText:"Maneja cada relación desde el primer contacto hasta la propuesta, seguimiento y conversión a cliente.",activePipeline:"Pipeline activo",followupsDue:"Seguimientos pendientes",proposals:"Propuestas",won:"Ganados",
   searchPlaceholder:"Buscar empresa, contacto, teléfono, servicio...",refresh:"Actualizar",prospect:"Prospecto",contact:"Contacto",stage:"Etapa",temperature:"Temp.",services:"Servicios",followup:"Seguimiento",owner:"Responsable",noProspects:"Todavía no hay prospectos. Agrega el primero.",
   pipelineBoard:"Tablero del Pipeline",pipelineHelp:"Mira dónde está cada oportunidad y mueve prospectos rápidamente entre etapas.",newProspect:"Nuevo Prospecto",intakeHelp:"Crea un perfil completo para que cada seguimiento tenga contexto.",
@@ -1099,6 +1360,166 @@ async function markSent(){
  p.lastContact=todayISO();p.updatedAt=new Date().toISOString();if(p.stage==="New Lead")p.stage="Contacted";
  persistLocal();render();await syncRecord(p);toast(t("sentLogged"));
 }
+
+function inputVal(id){
+  const el=document.getElementById(id);
+  return el ? String(el.value||"").trim() : "";
+}
+function checkedServicesRaw(){
+  return [...document.querySelectorAll("#serviceChecks input:checked")].map(x=>x.value);
+}
+function bullets(items){
+  const clean=items.filter(Boolean);
+  return clean.length ? clean.map(x=>"• "+x).join("\n") : "";
+}
+function buildStarterBrief(){
+  const isES=(document.getElementById("preferredLanguage")?.value==="Spanish") || currentLang==="es";
+  const company=inputVal("company") || (isES?"este prospecto":"this prospect");
+  const contact=inputVal("contactName");
+  const goal=inputVal("goal");
+  const pain=inputVal("painPoints");
+  const audience=inputVal("audience");
+  const platforms=inputVal("platforms");
+  const success=inputVal("success");
+  const assets=inputVal("assets");
+  const budget=inputVal("budget");
+  const start=inputVal("startDate");
+  const source=inputVal("source");
+  const website=inputVal("website");
+  const instagram=inputVal("instagram");
+  const servicesRaw=checkedServicesRaw();
+  const services=servicesRaw.map(v=>LABELS.services[isES?"es":"en"]?.[v]||v).join(", ");
+  const nextAction=inputVal("nextAction");
+
+  if(isES){
+    document.getElementById("briefOverview").value =
+      `${company}${contact?` — contacto principal: ${contact}`:""}. ` +
+      `${services?`Interés actual: ${services}. `:""}` +
+      `${goal?`Objetivo principal: ${goal}`:"Estamos todavía definiendo el objetivo principal."}`;
+
+    document.getElementById("briefWhatWeKnow").value = bullets([
+      goal ? `Objetivo expresado: ${goal}` : "",
+      audience ? `Audiencia objetivo: ${audience}` : "",
+      platforms ? `Plataformas actuales: ${platforms}` : "",
+      pain ? `Retos mencionados: ${pain}` : "",
+      success ? `El éxito para el prospecto se vería así: ${success}` : "",
+      source ? `Origen del prospecto: ${LABELS.sources.es?.[source]||source}` : "",
+      website ? `Sitio web: ${website}` : "",
+      instagram ? `Instagram: ${instagram}` : ""
+    ]) || "• Aún necesitamos documentar mejor lo aprendido en las conversaciones.";
+
+    document.getElementById("briefOpportunities").value = bullets([
+      services ? `Explorar una solución alrededor de: ${services}.` : "Definir qué servicios de MSMP tendrían mayor impacto.",
+      goal ? `Conectar la estrategia directamente con este objetivo: ${goal}` : "",
+      success ? `Usar la definición de éxito del prospecto para establecer KPIs y entregables.` : "",
+      platforms ? `Revisar las plataformas actuales para identificar oportunidades de contenido, posicionamiento y consistencia.` : "",
+      `Convertir los detalles descubiertos en ideas específicas de contenido y una propuesta personalizada.`
+    ]);
+
+    document.getElementById("briefConcerns").value = bullets([
+      pain ? `Retos actuales que debemos considerar: ${pain}` : "",
+      !budget ? "Presupuesto todavía no confirmado." : "",
+      !assets ? "Todavía no está claro qué recursos, archivos o accesos están disponibles." : "",
+      !audience ? "Audiencia objetivo todavía no está claramente definida." : "",
+      `Validar capacidad operativa y expectativas antes de prometer volumen, tiempos o resultados.`
+    ]);
+
+    const qs=[];
+    if(!budget) qs.push("¿Cuál es el presupuesto mensual disponible?");
+    if(!audience) qs.push("¿Quién es exactamente el cliente ideal / audiencia objetivo?");
+    if(!start) qs.push("¿Cuándo quieren comenzar?");
+    if(!assets) qs.push("¿Qué logos, fotos, videos, accesos y materiales ya tienen disponibles?");
+    if(!success) qs.push("¿Qué resultado haría que consideren que la inversión funcionó?");
+    qs.push("¿Qué servicio/producto quieren priorizar primero?");
+    qs.push("¿Cómo llegan hoy sus clientes y qué canal les produce mejores resultados?");
+    qs.push("¿Quién toma la decisión final y cuál es el proceso para aprobar una propuesta?");
+    document.getElementById("briefQuestions").value = bullets(qs);
+
+    document.getElementById("briefDirection").value = bullets([
+      services ? `Construir la recomendación alrededor de ${services}.` : "No definir el paquete final hasta completar discovery.",
+      goal ? `Usar "${goal}" como norte principal de la estrategia.` : "",
+      `Mantener la propuesta enfocada en las necesidades reales descubiertas, no en vender todos los servicios.`,
+      nextAction ? `Próxima acción actual: ${nextAction}` : "Completar las preguntas pendientes y definir el siguiente paso."
+    ]);
+  }else{
+    document.getElementById("briefOverview").value =
+      `${company}${contact?` — primary contact: ${contact}`:""}. ` +
+      `${services?`Current interest: ${services}. `:""}` +
+      `${goal?`Primary goal: ${goal}`:"The primary goal is still being defined."}`;
+
+    document.getElementById("briefWhatWeKnow").value = bullets([
+      goal ? `Stated goal: ${goal}` : "",
+      audience ? `Target audience: ${audience}` : "",
+      platforms ? `Current platforms: ${platforms}` : "",
+      pain ? `Challenges mentioned: ${pain}` : "",
+      success ? `Success would look like: ${success}` : "",
+      source ? `Lead source: ${LABELS.sources.en?.[source]||source}` : "",
+      website ? `Website: ${website}` : "",
+      instagram ? `Instagram: ${instagram}` : ""
+    ]) || "• We still need to document what we have learned from the conversations.";
+
+    document.getElementById("briefOpportunities").value = bullets([
+      services ? `Explore a solution around: ${services}.` : "Determine which MSMP services would create the most value.",
+      goal ? `Tie the strategy directly to this goal: ${goal}` : "",
+      success ? `Use the prospect's definition of success to shape KPIs and deliverables.` : "",
+      platforms ? `Review the current platforms for content, positioning and consistency opportunities.` : "",
+      `Turn discovery details into specific content ideas and a personalized proposal.`
+    ]);
+
+    document.getElementById("briefConcerns").value = bullets([
+      pain ? `Current challenges to account for: ${pain}` : "",
+      !budget ? "Monthly budget has not been confirmed yet." : "",
+      !assets ? "Available brand assets, files and account access are still unclear." : "",
+      !audience ? "The target audience is not clearly defined yet." : "",
+      `Validate operational capacity and expectations before promising volume, timelines or outcomes.`
+    ]);
+
+    const qs=[];
+    if(!budget) qs.push("What monthly budget is available?");
+    if(!audience) qs.push("Who exactly is the ideal customer / target audience?");
+    if(!start) qs.push("When do they want to start?");
+    if(!assets) qs.push("What logos, photos, video, account access and existing materials are available?");
+    if(!success) qs.push("What result would make them feel the investment worked?");
+    qs.push("Which service or offer should be the first priority?");
+    qs.push("How are customers finding them today, and which channel performs best?");
+    qs.push("Who makes the final decision and what is the approval process for a proposal?");
+    document.getElementById("briefQuestions").value = bullets(qs);
+
+    document.getElementById("briefDirection").value = bullets([
+      services ? `Build the recommendation around ${services}.` : "Do not lock the final package until discovery is complete.",
+      goal ? `Use "${goal}" as the main strategic north star.` : "",
+      `Keep the proposal focused on the needs uncovered in discovery instead of trying to sell every service.`,
+      nextAction ? `Current next action: ${nextAction}` : "Complete the open discovery questions and define the next step."
+    ]);
+  }
+  toast(t("briefBuilt"));
+}
+async function copyProspectBrief(){
+  const isES=currentLang==="es";
+  const parts=[
+    `${isES?"PROSPECTO":"PROSPECT"}: ${inputVal("company")||"—"}`,
+    "",
+    `1. ${t("briefOverview").toUpperCase()}\n${inputVal("briefOverview")||"—"}`,
+    "",
+    `2. ${t("briefWhatWeKnow").toUpperCase()}\n${inputVal("briefWhatWeKnow")||"—"}`,
+    "",
+    `3. ${t("briefOpportunities").toUpperCase()}\n${inputVal("briefOpportunities")||"—"}`,
+    "",
+    `4. ${t("briefConcerns").toUpperCase()}\n${inputVal("briefConcerns")||"—"}`,
+    "",
+    `5. ${t("briefQuestions").toUpperCase()}\n${inputVal("briefQuestions")||"—"}`,
+    "",
+    `6. ${t("briefDirection").toUpperCase()}\n${inputVal("briefDirection")||"—"}`
+  ];
+  const text=parts.join("\n");
+  try{await navigator.clipboard.writeText(text)}
+  catch(e){
+    const temp=document.createElement("textarea");
+    temp.value=text;document.body.appendChild(temp);temp.select();document.execCommand("copy");temp.remove();
+  }
+  toast(t("briefCopied"));
+}
+
 function jsonp(url,timeout=12000){
  return new Promise((resolve,reject)=>{
   const cb="msmp_cb_"+Date.now()+"_"+Math.floor(Math.random()*9999);const s=document.createElement("script");let timer;
