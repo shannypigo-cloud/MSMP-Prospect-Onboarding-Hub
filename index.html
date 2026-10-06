@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MSMP | Prospect Onboarding Hub</title>
 <meta name="theme-color" content="#151515">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MSMP">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
 :root{
   --bg:#f4f2ee; --card:#fff; --ink:#171717; --muted:#6d6d6d; --line:#e7e2da;
@@ -70,34 +74,250 @@ tbody tr:hover{background:#fbfaf7}
 .config{padding:20px}.config code{word-break:break-all;background:#f5f5f5;padding:2px 5px;border-radius:5px}
 .progress{height:10px;border-radius:999px;background:#eee;overflow:hidden}.progress>div{height:100%;background:var(--accent2)}
 .toast{position:fixed;right:22px;bottom:22px;background:var(--dark);color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);z-index:20}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.sidebar{position:static}.stats{grid-template-columns:repeat(2,1fr)}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
-@media(max-width:560px){.app{padding:12px}.topbar,.hero{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}.hero h2{font-size:23px}.actions{width:100%}.actions .btn{flex:1}}
+.topbar,.hero{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr 1fr}.hero h2{font-size:23px}.actions{width:100%}.actions .btn{flex:1}}
+
+/* ---------- APP / TOUCH RESPONSIVE LAYOUT ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-width:0}
+button,.btn,input,select,textarea{min-height:44px}
+input,select,textarea{font-size:16px}
+button,.btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.main,.card,.hero,.toolbar,.field,.formgrid>*{min-width:0}
+.mobile-prospect-cards{display:none}
+.mobile-only{display:none}
+
+@media (min-width: 901px) and (max-width: 1180px){
+  .app{padding:16px}
+  .grid{grid-template-columns:230px minmax(0,1fr);gap:14px}
+  .sidebar{padding:10px}
+  .hero{padding:19px}
+  .hero h2{font-size:25px}
+  .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .stat{padding:15px}
+  .stat strong{font-size:26px}
+  .formgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .section{padding:18px}
+  th,td{padding:11px 10px}
+}
+
+@media (max-width: 900px){
+  body{padding-bottom:86px}
+  .app{padding:14px 14px 20px}
+  .topbar{margin-bottom:14px}
+  .brand .logo{width:44px;height:44px;border-radius:13px}
+  .brand h1{font-size:18px}
+  .brand p{font-size:12px}
+  .actions .btn{min-width:132px}
+
+  .grid{display:block}
+  .main{gap:14px}
+
+  /* Bottom app navigation */
+  .sidebar{
+    position:fixed;
+    z-index:50;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    top:auto;
+    padding:7px;
+    border-radius:18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    box-shadow:0 12px 35px rgba(0,0,0,.18);
+  }
+  .sidebar .navtitle{display:none}
+  .sidebar .navbtn{
+    min-height:52px;
+    margin:0;
+    padding:8px 10px;
+    justify-content:center;
+    gap:8px;
+    text-align:center;
+    font-size:13px;
+  }
+  .sidebar .navbtn.active{background:var(--dark);color:#fff}
+  .sidebar .navbtn .badge{background:var(--accent);color:#111}
+  .sidebar .navbtn span:not(.badge){display:none}
+
+  .hero{padding:18px;align-items:flex-start}
+  .hero h2{font-size:24px}
+  .hero p{font-size:13px;line-height:1.5}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px!important}
+  .stat{padding:15px}
+  .stat strong{font-size:27px}
+  .toolbar{padding:12px;margin-top:14px!important}
+  .search{flex-basis:100%}
+  .toolbar select{max-width:none!important;flex:1}
+  .toolbar .btn{flex:0 0 auto}
+
+  .formgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .section{padding:17px}
+  .section h3{font-size:22px}
+  .checks{gap:7px}
+  .check{
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    padding:9px 11px;
+  }
+  .check input{min-height:auto;width:18px;height:18px}
+
+  /* Tables are useful on tablet; allow local scroll only */
+  .desktop-table{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:850px}
+}
+
+@media (max-width: 640px){
+  .app{padding:10px 10px 18px}
+  .app-header{align-items:center;gap:10px}
+  .brand{min-width:0}
+  .brand p{display:none}
+  .brand h1{
+    font-size:16px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:210px;
+  }
+  .actions{margin-left:auto}
+  .actions .btn{
+    min-width:auto;
+    padding:10px 12px;
+    font-size:13px;
+  }
+
+  .hero{border-radius:17px}
+  .hero h2{font-size:22px}
+  .hero>div:last-child{margin-top:5px}
+  .stats{gap:8px}
+  .stat{padding:13px;border-radius:16px}
+  .stat span{font-size:10px}
+  .stat strong{font-size:24px}
+
+  .toolbar{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px;
+  }
+  .toolbar .search{grid-column:1/-1}
+  .toolbar select{width:100%;min-width:0}
+  .toolbar .btn{padding-inline:12px}
+
+  /* Card-based prospect list on phones */
+  .desktop-table{display:none}
+  .mobile-prospect-cards{
+    display:grid;
+    gap:10px;
+    margin-top:14px;
+  }
+  .prospect-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:17px;
+    padding:15px;
+    box-shadow:0 8px 26px rgba(20,20,20,.05);
+  }
+  .prospect-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .prospect-card h4{
+    margin:0;
+    font-size:17px;
+    line-height:1.25;
+    overflow-wrap:anywhere;
+  }
+  .prospect-card .contact{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:3px;
+    overflow-wrap:anywhere;
+  }
+  .prospect-card-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
+    margin:14px 0;
+  }
+  .prospect-card-grid span{
+    display:block;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    color:var(--muted);
+    font-weight:800;
+    margin-bottom:3px;
+  }
+  .prospect-card-grid b{
+    display:block;
+    font-size:13px;
+    overflow-wrap:anywhere;
+  }
+  .prospect-card .open-btn{width:100%}
+
+  .formgrid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .section{padding:15px;border-radius:17px}
+  .section>p{font-size:13px}
+  .field label{font-size:12px}
+  textarea{min-height:96px}
+  .checks{display:grid;grid-template-columns:1fr 1fr}
+  .formfooter{
+    position:sticky;
+    bottom:76px;
+    z-index:8;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    margin:18px -15px -15px;
+    padding:12px 15px;
+    border-radius:0 0 17px 17px;
+  }
+  .formfooter>div{width:100%;margin-left:0!important}
+  .formfooter .btn{flex:1}
+  #deleteBtn{position:absolute;right:15px;top:-54px}
+}
+
+@media (max-width: 390px){
+  .brand h1{max-width:180px}
+  .stats{grid-template-columns:1fr 1fr}
+  .checks{grid-template-columns:1fr}
+  .prospect-card-grid{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr}
+  .toolbar .search{grid-column:auto}
+  .toolbar .btn,.toolbar select{width:100%}
+}
+
+@supports (padding: max(0px)){
+  @media (max-width:900px){
+    body{padding-bottom:max(86px,calc(76px + env(safe-area-inset-bottom)))}
+    .sidebar{bottom:max(10px,env(safe-area-inset-bottom))}
+  }
+}
+
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
+  <header class="topbar app-header">
     <div class="brand">
       <div class="logo">MS</div>
       <div><h1>MSMP Prospect Onboarding</h1><p>Lead intake → discovery → proposal → client</p></div>
     </div>
     <div class="actions">
-      <button class="btn" onclick="showView('settings')">⚙ Setup</button>
       <button class="btn accent" onclick="newProspect()">＋ New Prospect</button>
     </div>
   </header>
 
   <div class="grid">
-    <aside class="card sidebar">
+    <aside class="card sidebar" id="appNav">
       <div class="navtitle">Workspace</div>
       <button class="navbtn active" data-view="dashboard" onclick="showView('dashboard')">Prospects <span class="badge" id="sideCount">0</span></button>
       <button class="navbtn" data-view="form" onclick="newProspect()">Prospect Intake <span>→</span></button>
-      <button class="navbtn" data-view="settings" onclick="showView('settings')">Integration <span>↗</span></button>
-      <div class="side-note">
-        <b>Recommended setup</b><br>
-        GitHub Pages hosts this site. Google Sheets stores the records. Apps Script connects both.
-      </div>
-    </aside>
+</aside>
 
     <main class="main">
       <section id="dashboardView">
@@ -122,7 +342,9 @@ tbody tr:hover{background:#fbfaf7}
           <button class="btn" onclick="loadProspects()">↻ Refresh</button>
         </div>
 
-        <div class="card tablewrap" style="margin-top:18px">
+        <div id="mobileProspectCards" class="mobile-prospect-cards"></div>
+
+        <div class="card tablewrap desktop-table" style="margin-top:18px">
           <table>
             <thead><tr><th>Prospect</th><th>Contact</th><th>Stage</th><th>Services</th><th>Budget</th><th>Follow-up</th><th>Owner</th><th></th></tr></thead>
             <tbody id="prospectRows"></tbody>
@@ -177,7 +399,7 @@ tbody tr:hover{background:#fbfaf7}
         </div>
       </section>
 
-      <section id="settingsView" class="hidden">
+      <section id="settingsView" class="hidden" style="display:none!important">
         <div class="card config">
           <h3>Google Sheets Integration</h3>
           <p class="small">Paste the URL from your deployed Google Apps Script Web App. It will look like <code>https://script.google.com/macros/s/.../exec</code>.</p>
@@ -205,7 +427,7 @@ function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t
 function showView(v){
   ["dashboard","form","settings"].forEach(x=>document.getElementById(x+"View").classList.toggle("hidden",x!==v));
   document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
-  if(v==="settings")document.getElementById("apiUrl").value=apiUrl;
+  if(v==="settings" && document.getElementById("apiUrl"))document.getElementById("apiUrl").value=apiUrl;
 }
 function uid(){return "P-"+Date.now().toString(36).toUpperCase()+"-"+Math.random().toString(36).slice(2,6).toUpperCase()}
 function stageClass(s){return {"New Lead":"stage-new","Contacted":"stage-contacted","Discovery":"stage-discovery","Proposal Sent":"stage-proposal","Won":"stage-won","Lost":"stage-lost"}[s]||""}
@@ -236,7 +458,27 @@ function renderTable(){
     <td>${esc(p.followUp||"—")}</td><td>${esc(p.owner||"—")}</td>
     <td><button class="btn" onclick="editProspect('${p.id}')">Open</button></td>
   </tr>`).join("");
+
+  const cards=document.getElementById("mobileProspectCards");
+  cards.innerHTML=list.map(p=>`<article class="prospect-card">
+    <div class="prospect-card-head">
+      <div>
+        <h4>${esc(p.company)}</h4>
+        <div class="contact">${esc(p.contactName||"")}${p.phone||p.email ? " · "+esc(p.phone||p.email) : ""}</div>
+      </div>
+      <span class="pill ${stageClass(p.stage)}">${esc(p.stage||"New Lead")}</span>
+    </div>
+    <div class="prospect-card-grid">
+      <div><span>Services</span><b>${esc(p.services||"—")}</b></div>
+      <div><span>Budget</span><b>${money(p.budget)}</b></div>
+      <div><span>Follow-up</span><b>${esc(p.followUp||"—")}</b></div>
+      <div><span>Owner</span><b>${esc(p.owner||"—")}</b></div>
+    </div>
+    <button class="btn open-btn" onclick="editProspect('${p.id}')">Open Prospect</button>
+  </article>`).join("");
+
   document.getElementById("emptyState").classList.toggle("hidden",list.length>0);
+  cards.classList.toggle("hidden",list.length===0);
 }
 function newProspect(){
   document.getElementById("prospectForm").reset();
